@@ -1,37 +1,29 @@
 import AppHeader from "../appHeader/AppHeader";
-import RandomChar from "../randomChar/RandomChar";
-import CharList from "../charList/CharList";
-import CharInfo from "../charInfo/CharInfo";
 
-import decoration from '../../resources/img/groot.png';
-import { Component } from "react";
-
-class App extends Component {
-
-    state = {
-        charId: null
-    }
-
-    updateCharId = (charId) => {
-        this.setState({charId})
-    }
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import MainPage from "../pages/mainPage";
+import ComicsPage from "../pages/comicsPage";
 
 
-   render () {
+const App = () => {
+   
     return (
-        <div className="app">
-            <AppHeader/>
-            <main>
-                <RandomChar/>
-                <div className="char__content">
-                    <CharList updateCharId={this.updateCharId} charId={this.state.charId}/>
-                    <CharInfo charId={this.state.charId}/>
-                </div>
-                <img className="bg-decoration" src={decoration} alt="vision"/>
-            </main>
-        </div>
+        <Router >
+            <div className="app">
+                <AppHeader />
+                <main>
+                    <Routes>
+                        <Route path="/" element={ <MainPage/>}>
+                           
+                        </Route>
+                        <Route path="/comics" element={<ComicsPage/>}>
+                           
+                        </Route>
+                    </Routes>
+                </main>
+            </div>
+        </Router>
     )
-   }
 }
 
 
