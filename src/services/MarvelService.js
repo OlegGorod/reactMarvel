@@ -22,6 +22,7 @@ class MarvelService {
 
     getCharacter = async (id) => {
         const res = await this.getResource(`${this._apiBase}characters/${id}?${this._apiKey}`);
+        console.log(res.data.results[0])
        return this._transformCharacter(res.data.results[0]);
     }
 
@@ -31,6 +32,11 @@ class MarvelService {
         .filter(comics => !comics.thumbnail.path.includes('image_not_available'))
         .slice(0,8)
         return filteredComicsImage.map(this._transformComics)
+    }
+
+    getComic = async (id) => {
+        const res = await this.getResource(`${this._apiBase}comics/${id}?${this._apiKey}`);
+       return this._transformComics(res.data.results[0]);
     }
 
     _transformCharacter = (char) => {
@@ -46,14 +52,20 @@ class MarvelService {
     }
 
     _transformComics = (comics) => {
-        return {
-            title: comics.title,
-            id: comics.id,
-            description: comics.description,
-            thumbnail: comics.thumbnail.path + '.' + comics.thumbnail.extension,
-            price: comics.prices[0].price
-        }
-    }
+		return {
+			id: comics.id,
+			title: comics.title,
+			description: comics.description || "There is no description",
+			pageCount: comics.pageCount
+				? `${comics.pageCount} pages.`
+				: "No info about pages",
+			thumbnail: comics.thumbnail.path + "." + comics.thumbnail.extension,
+			language: comics.textObjects[0]?.language || "en-us",
+			price: comics.prices[0].price
+				? `${comics.prices[0].price}$`
+				: "no price",
+		};
+	};
 
 }
 

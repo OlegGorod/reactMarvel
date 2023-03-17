@@ -5,6 +5,7 @@ import Skeleton from '../skeleton/Skeleton';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom';
 
 const CharInfo = (props) => {
     const [loading, setLoading] = useState(false)
@@ -89,10 +90,10 @@ const View = ({ char }) => {
             <ul className="char__comics-list">
                 {filterComics}
                 {comics.slice(0, 5).map((heroes, i) => {
-
+                     let comicsInfo = heroes.resourceURI.replace(/\D/g, '').slice(1);
                     return (
                         <li className="char__comics-item" key={i}>
-                            {heroes.name}
+                            <Link to={`/comics/${comicsInfo}`}>{heroes.name}</Link>
                         </li>
                     )
                 })}

@@ -16,7 +16,7 @@ const AppHeader = () => {
                         to='/'>Characters</NavLink>
                     </li>
                     |
-                    <li><NavLink end
+                    <li><NavLink
                         style={({isActive}) => ({color: isActive ? 'green' : 'inherit'})}
                         to='/comics'>Comics</NavLink>
                     </li>

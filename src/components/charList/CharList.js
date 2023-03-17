@@ -45,7 +45,6 @@ const CharList = (props) => {
     }
 
     const showMarvels = (arrayOfChar) => {
-        console.log(arrayOfChar)
         return arrayOfChar.map((heroes, i) => {
             const { thumbnail, name, id } = heroes
             const active = props.charId === id;
