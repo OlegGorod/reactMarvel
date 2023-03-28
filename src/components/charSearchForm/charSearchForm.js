@@ -14,7 +14,6 @@ const CharSearchForm = () => {
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
 
-    console.log(char)
     const onCharLoaded = (char) => {
         setChar(char);
     }

@@ -7,7 +7,6 @@ import AppBanner from '../appBanner/AppBanner';
 
 const SinglePage = ({ Component, dataType }) => {
     const { comicId } = useParams();
-    console.log(comicId)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false);
     const [data, setData] = useState('')

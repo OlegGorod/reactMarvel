@@ -1,17 +1,19 @@
 import './singleComicPage.scss';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import MarvelService from '../../services/MarvelService';
-import ErrorMessage from '../errorMessage/ErrorMessage';
-import Spinner from '../spinner/Spinner';
-import AppBanner from '../appBanner/AppBanner';
-
-const SingleComicPage = ({data}) => {
+import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
+const SingleComicPage = ({ data }) => {
     const { title, description, pageCount, thumbnail, language, price } = data;
 
 
     return (
         <div className="single-comic">
+            <Helmet>
+                <meta
+                    name="description"
+                    content={`${title} comics book`}
+                />
+                <title>{title}</title>
+            </Helmet>
             <img src={thumbnail} alt={title} className="single-comic__img" />
             <div className="single-comic__info">
                 <h2 className="single-comic__name">{title}</h2>

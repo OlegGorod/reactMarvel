@@ -3,6 +3,7 @@ import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
 
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 
 
 import decoration from '../../resources/img/groot.png';
@@ -19,12 +20,19 @@ const MainPage = () => {
 
     return (
         <>
+            <Helmet>
+                <meta
+                    name="description"
+                    content="Marvel information portal"
+                />
+                <title>Marvel information portal</title>
+            </Helmet>
             <RandomChar />
             <div className="char__content">
                 <CharList updateCharId={updateCharId} charId={charId} />
                 <div>
                     <CharInfo charId={charId} />
-                    <CharSearchForm/>
+                    <CharSearchForm />
                 </div>
             </div>
             <img className="bg-decoration" src={decoration} alt="groot" />
