@@ -1,52 +1,15 @@
 import './singleComicPage.scss';
-import xMen from '../../resources/img/x-men.png';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import MarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
+import AppBanner from '../appBanner/AppBanner';
 
-const SingleComicPage = () => {
-    const { comicId } = useParams();
-   
-
-    const [comic, setComic] = useState(null);
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(false);
-
-    const marvelService = new MarvelService();
-
-    useEffect(() => {
-        onRequest(comicId)
-    }, [])
-
-    const onRequest = (comicId) => {
-        setLoading(false)
-        marvelService.getComic(comicId)
-            .then(setComic)
-            .catch(() => setError(true));
-    }
+const SingleComicPage = ({data}) => {
+    const { title, description, pageCount, thumbnail, language, price } = data;
 
 
-    const problem = error ? <ErrorMessage /> : null;
-    const spinner = loading ? <Spinner /> : null;
-    const content = !(loading || error || !comic) ? <View comic={comic}/> : null
-
-
-    return (
-        <>
-            {problem}
-            {spinner}
-            {content}
-        </>
-    )
-}
-
-const View = ({comic}) => {
-    const {id, title, description, pageCount, thumbnail, language, price} = comic;
-    const navigate = useNavigate();
-
-    
     return (
         <div className="single-comic">
             <img src={thumbnail} alt={title} className="single-comic__img" />
@@ -56,10 +19,15 @@ const View = ({comic}) => {
                 <p className="single-comic__descr">{pageCount}</p>
                 <p className="single-comic__descr">Language: {language}</p>
                 <div className="single-comic__price">{price}</div>
+                <Link to={'/comics'}><button className="single-comic__back button__long">Back to comics</button>
+                </Link>
+                <Link to={'/'}><button
+                    className="single-comic__back button__long"
+                    style={{ 'marginLeft': '15px' }}>Back to characters</button></Link>
             </div>
-            <div onClick={() => navigate(-1)} className="single-comic__back">Back to comics</div>
         </div>
     )
 }
+
 
 export default SingleComicPage;

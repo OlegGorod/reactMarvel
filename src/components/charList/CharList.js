@@ -1,6 +1,6 @@
 import './charList.scss';
 import MarvelService from '../../services/MarvelService';
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, Fragment, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
@@ -12,14 +12,13 @@ const CharList = (props) => {
     const [loading, setLoading] = useState(true);
     const [offset, setOffset] = useState(9);
     const [charEnded, setCharEnded] = useState(false);
-
+    const [scrollPosition, setScrollPosition] = useState(0)
 
     const marvelService = new MarvelService();
 
     useEffect(() => {
-        onRequest(offset)
-    }, [])
-
+        onRequest(offset);
+    }, []);
 
     const onRequest = (newOffset) => {
         marvelService.getAllCharacters(newOffset)
@@ -32,7 +31,7 @@ const CharList = (props) => {
         if (newCharList.length < 1) {
             ended = true;
         }
-
+        setScrollPosition(window.pageYOffset)
         setArrayOfChar(arrayOfChar => [...arrayOfChar, ...newCharList])
         setLoading(false)
         setOffset(offset => offset + 9)
@@ -69,6 +68,9 @@ const CharList = (props) => {
     const problem = error ? <ErrorMessage /> : null
     const inProcess = loading ? <Spinner /> : null
     const progress = problem || inProcess || marvels;
+    
+
+
 
     return (
         <Fragment>

@@ -6,6 +6,7 @@ import { useState } from "react";
 
 
 import decoration from '../../resources/img/groot.png';
+import CharSearchForm from "../charSearchForm/charSearchForm";
 
 const MainPage = () => {
 
@@ -21,7 +22,10 @@ const MainPage = () => {
             <RandomChar />
             <div className="char__content">
                 <CharList updateCharId={updateCharId} charId={charId} />
-                <CharInfo charId={charId} />
+                <div>
+                    <CharInfo charId={charId} />
+                    <CharSearchForm/>
+                </div>
             </div>
             <img className="bg-decoration" src={decoration} alt="groot" />
         </>
